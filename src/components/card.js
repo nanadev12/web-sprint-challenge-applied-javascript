@@ -31,7 +31,7 @@ const Card = (article) => {
   cardM.classList.add('card')
   headline.classList.add('headline')
   author.classList.add('author')
-  imgContainer.classList.add('image-container')
+  imgContainer.classList.add('img-container')
 
   headline.textContent = article.headline 
   authorImg.src = article.authorPhoto
@@ -75,7 +75,7 @@ const cardAppender = (selector) => {
     for (const article in articles) {
       const articleVarible = articles[article]
         articleVarible.forEach((art)=>{
-
+          console.log(articleVarible,art)
           aEntry.appendChild(Card(art))
         })
         
