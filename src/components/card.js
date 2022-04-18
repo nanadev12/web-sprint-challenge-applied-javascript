@@ -1,4 +1,48 @@
+import axios from "axios"
 const Card = (article) => {
+
+  const cardM = document.createElement('div')
+  const headline = document.createElement('div')
+  const author = document.createElement('div')
+  const imgContainer = document.createElement('div')
+  const authorImg = document.createElement('img')
+  const authorNspan = document.createElement('span')
+  
+
+  //<div class="card">
+  //   <div class="headline">{ headline }</div>
+  //   <div class="author">
+  //     <div class="img-container">
+  //       <img src={ authorPhoto }>
+  //     </div>
+  //     <span>By { authorName }</span>
+  //   </div>
+  // </div>
+
+
+ 
+
+  cardM.appendChild(headline)
+  cardM.appendChild(author)
+  author.appendChild(imgContainer)
+  imgContainer.appendChild(authorImg)
+  author.appendChild(authorNspan)
+
+  cardM.classList.add('card')
+  headline.classList.add('headline')
+  author.classList.add('author')
+  imgContainer.classList.add('image-container')
+
+  headline.textContent = article.headline 
+  authorImg.src = article.authorPhoto
+  authorNspan.textContent = article.authorName
+
+  cardM.addEventListener('click',()=>{
+    console.log(headline)
+  })
+  
+   return cardM
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -20,6 +64,36 @@ const Card = (article) => {
 }
 
 const cardAppender = (selector) => {
+  const aEntry = document.querySelector(selector)
+
+  axios.get('http://localhost:5001/api/articles')
+  .then((res)=>{
+    console.log(res.data)
+    const articles = res.data.articles
+    console.log(typeof articles)
+
+    for (const article in articles) {
+      const articleVarible = articles[article]
+        articleVarible.forEach((art)=>{
+
+          aEntry.appendChild(Card(art))
+        })
+        
+    }
+    
+    //  const test1 = Card({testM})
+    //  
+    
+  })
+  .catch((err)=>{
+    console.log({err})
+
+  })
+  .finally(()=>{
+
+  })
+   
+
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
